@@ -1,1 +1,1 @@
-web:gunicorn core.wsgi
+web: gunicorn -b 0.0.0.0:8000 backend.django_app.core:application --log-file -

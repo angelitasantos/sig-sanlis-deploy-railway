@@ -1,0 +1,57 @@
+{% extends 'base_user.html' %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block head %}
+{% load static %}
+{% endblock %}
+
+{% block container %}
+
+<main class="container-fluid mt-5">
+
+  <div class="row">
+
+    <section class="col-md-3"></section>
+
+    <section class="col-md-6">
+
+      <div class="card m-3">
+
+        <div class="card-header">
+          <h3 class="title">Seja Bem Vindo(a)</h3>
+          <h6 class="subtitle">Entre com sua conta</h6>
+          {% include 'messages.html' %}
+        </div>
+          
+        <div class="card-body">
+          <form action="{% url 'activation:login' %}" method="POST">
+          {% csrf_token %}
+
+            <span class="bold">Username</span>
+            <input class="form-control" name="username" type="text">
+            <br>
+
+            <span class="bold">Senha</span>
+            <input class="form-control" name="password" type="password">
+
+            <button class="btn btn-success btn-sm mt-3 px-5">ENTRAR</button>
+
+          </form>
+        </div>
+
+        <div class="card-footer pt-4">
+          <h4 class="text-center" style="bottom: 65px; font-weight: bold">Não tem uma conta ?&nbsp 
+          <a href="{% url 'activation:register' %}" class="btn btn-outline-success btn-sm px-5">REGISTRAR</a>
+        </div>
+
+      </div>
+      
+    </section>
+
+    <section class="col-md-3"></section>
+
+  </div>
+  
+</main>
+
+{% endblock %}

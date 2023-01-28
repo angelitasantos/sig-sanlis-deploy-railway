@@ -1,0 +1,42 @@
+<button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalBrand">
+  <i class="fa fa-plus"></i>
+</button>           
+
+<div class="modal fade" id="modalBrand" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+                <h4 class="modal-title titulo" id="exampleModalLabel">Cadastrar Brand</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+          </div>
+          
+          <div class="modal-body">
+              <form action="{% url 'category_create' %}" method="POST">
+                {% csrf_token %}
+
+                <span>Descrição:</span>
+                <input type="text" class="form-control mb-2" name="brand">
+
+                <div class="row mt-2">
+                    <div class="col-sm-6">
+                        <span>Margem:</span>
+                        <input type="number" step="0.01" placeholder=""
+                            class="form-control" name="markup">
+                    </div>
+                    <div class="col-sm-6">
+                        <span>Comissão:</span>
+                        <input type="number" step="0.01" placeholder="" 
+                            class="form-control" name="commission">
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <input type="submit" class="btn btn-success btn-sm mt-3 px-5" value="Salvar">
+                </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

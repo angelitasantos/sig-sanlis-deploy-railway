@@ -1,0 +1,23 @@
+<table class="container table table-sm table-responsive-sm table-hover mt-3">
+
+    <thead class="">
+        <tr>
+            <th>#</th>
+            <th>Mês Anterior</th>
+            <th>Mês Atual</th>
+        </tr>
+    </thead>
+
+    <tbody class="table-group-divider">
+        {% for company in companies %}
+        <tr class="tabela-linha">
+            <td>{{ company.token_company }}</td>
+            <td><a href="{% url 'company_view' company.id %}">{{ company.name }}</a></td>
+            <td>{{ company.phone }}</td>
+            <td>{{ company.whatsapp_number }}</td>
+            <td>{{ company.cnpj }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>

@@ -1,0 +1,82 @@
+{% extends 'company/base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block container %}
+
+<main class="container-fluid py-3">
+
+  {% include 'breadcrumb_stock.html' %}
+
+  {% include 'messages.html' %}
+
+  <section class="row">
+
+    <div class="col-md-10">
+      <h3 class="text-success">Registro de {{ subtitle }}</h3>
+    </div>
+
+    <div class="col-md-2">
+      <a href="{% url url_list %}">
+        <button type="button" class="btn btn-success btn-sm px-2">
+          <span class="fa fa-arrow-left"></span> Voltar
+        </button>
+      </a>
+    </div>
+
+  </section>
+
+  <section class="body-box">
+
+    <h4 class="mt-2">Id: {{ object }}</h3>
+
+    <div class="col-sm-12">
+
+      <table class="table table-user-information table-sm table-responsive-sm table-hover">
+
+        <tbody>
+          <tr>
+            <th class="text-right">NF</th>
+            <td>{{ object.nf_formated }}</td>
+          </tr>
+          <tr>
+            <th class="text-right">Data</th>
+            <td>{{ object.created }}</td>
+          </tr>
+          <tr>
+            <th class="text-right">Funcionário</th>
+            <td>{{ object.funcionario.first_name }}</td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <table class="table table-sm table-responsive-sm table-hover">
+
+      <thead class="thead-dark">
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Saldo</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for obj in object.estoques.all %}
+          <tr>
+            <td>{{ obj.produto }}</td>
+            <td>{{ obj.quantidade }}</td>
+            <td>{{ obj.saldo }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+
+  </section>
+
+</main>
+
+{% endblock %}

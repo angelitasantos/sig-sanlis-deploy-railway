@@ -1,0 +1,117 @@
+{% extends 'company/base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block container %}
+
+<main class="container-fluid py-3">
+
+    {% include 'breadcrumb.html' %}
+
+    {% include 'messages.html' %}
+
+    <section class="row my-2">
+
+        <div class="col-md-10">
+            <h3 class="text-success">Gerenciar Parceiros</h3>
+        </div>
+
+        <div class="col-md-2">
+            <a href="{% url 'plataform:partner_create' %}">
+                <button type="button" class="btn btn-success btn-sm px-5">
+                    <span class="fa fa-plus"></span> Adicionar
+                </button>
+            </a>
+        </div>
+
+    </section>
+
+    <section class="body-box">
+
+        <form action="{% url 'plataform:partners' %}" method="GET">
+            {% csrf_token %}
+            <div class="row">
+                
+                <section class="col-md-5 mb-2">
+                    <input type="text" placeholder="Buscar pelo Apelido" class="form-control" name="nickname">
+                </section>
+
+                <section class="col-md-2 mb-2">
+                    <select class="form-control" name="groups">
+                        <option value="">Escolha Grupo</option>
+                        {% for group in groups %}
+                        <option value="{{ group.id }}">{{ group }}</option>
+                        {% endfor %}
+                    </select>
+                </section>
+
+                <section class="col-md-2 mb-2">
+                    <select class="form-control" name="subgroups">
+                        <option value="">Escolha SubGrupo</option>
+                        {% for subgroup in subgroups %}
+                        <option value="{{ subgroup.id }}">{{ subgroup }}</option>
+                        {% endfor %}
+                    </select>
+                </section>
+                
+                <section class="col-md-2">
+                    <input type="submit" value="FILTRAR" class="btn btn-outline-success px-5">
+                </section>
+
+            </div>
+        </form>
+
+        <table class="table table-sm table-responsive-sm table-hover mt-2">
+
+            <thead class="thead-dark">
+                <tr>
+                    <th>Status</th>
+                    <th>Apelido</th>
+                    <th>Phone1</th>
+                    <th>Phone2</th>
+                    <th>Documento</th>
+                    <th>Nome</th>
+                    <th>Sobrenome</th>
+                    <th>Email</th>
+                    <th>Editar</th>
+                    <th>Deletar</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-group-divider">
+                {% for partner in page.object_list %}
+                <tr class="tabela-linha">
+                    <td>
+                        {% if partner.status == 'A' %}
+                            <i class="fa fa-check-circle text-success"></i>
+                        {% else %}
+                            <i class="fa fa-minus-circle text-danger"></i>
+                        {% endif %}
+                    </td>
+                    <td><a href="{% url 'plataform:partner_view' partner.id %}">{{ partner.nickname }}</a></td>
+                    <td>{{ partner.phone1 }}</td>
+                    <td>{{ partner.phone2 }}</td>
+                    <td>{{ partner.document }}</td>
+                    <td>{{ partner.first_name }}</td>
+                    <td>{{ partner.last_name }}</td>
+                    <td>{{ partner.email }}</td>
+                    <td><a class="btn-sm btn-warning" href="{% url 'plataform:partner_view' partner.id %}">
+                        <i class="fa fa-edit"></i></a>
+                    </td>
+                    <td><a class="btn-sm btn-danger" href="{% url 'plataform:partner_delete' partner.id %}"
+                        onclick="return confirm('Você tem certeza que deseja excluir este parceito ?')">
+                        <i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+        {% include 'pagination.html' %}
+        
+    </section>
+
+</main>
+
+{% endblock %}

@@ -1,0 +1,177 @@
+{% extends 'company/base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block container %}
+
+<main class="container-fluid py-3">
+
+    {% include 'breadcrumb.html' %}
+
+    <section class="row my-2">
+
+        <div class="col-md-10">
+            <h3 class="text-success">Alterar Parceiro</h3>
+        </div>
+
+        <div class="col-md-2">
+            <a href="{% url 'plataform:partners' %}">
+                <button type="button" class="btn btn-success btn-sm px-5">
+                    <span class="fa fa-arrow-left"></span> Voltar
+                </button>
+            </a>
+        </div>
+
+    </section>
+
+    <section class="container-fluid mb-3">
+
+        {% include 'messages.html' %}
+        
+        <section class="row">
+
+            <div class="col-md-12 border border-success py-2">
+
+                <form action="{% url 'plataform:partner_update' partner.id %}" method="POST">
+                    {% csrf_token %}
+
+                    <input type="hidden" class="form-control" name="company" value="{{ company_id_value }}">
+
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <span>ID</span>
+                            <input type="text" value="{{ partner.id }}" class="form-control" disabled name="id">
+                        </div>
+                        <div class="col-sm-5">
+                            <span>Apelido *</span>
+                            <input type="text" value="{{ partner.nickname }}" class="form-control" name="nickname">
+                        </div>
+                        <div class="col-sm-4">
+                            <span>Documento *</span>
+                            <input type="text" value="{{ partner.document }}" class="form-control" name="document">
+                        </div>
+                        <div class="col-sm-2">
+                            <span>Status</span>
+                            <select name="status" class="form-control">
+                                <option value="{{ partner.status }}">{{ partner.get_status_display }}</option>
+                                <option disabled value=""> . Escolha uma Opção</option>
+                                <option value="A">Ativo</option>
+                                <option value="I">Inativo</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-sm-6">
+                            <span>Nome</span>
+                            <input type="text" value="{{ partner.first_name }}" class="form-control" name="first_name">
+                        </div>
+                        <div class="col-sm-6">
+                            <span>Sobrenome</span>
+                            <input type="text" value="{{ partner.last_name }}" class="form-control" name="last_name">
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-sm-6">
+                            <span>Telefone 1</span>
+                            <input type="text" value="{{ partner.phone1 }}" class="form-control" name="phone1">
+                        </div>
+                        <div class="col-sm-6">
+                            <span>Telefone 2</span>
+                            <input type="text" value="{{ partner.phone2 }}" class="form-control" name="phone2">
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-sm-12">
+                            <span class="mt-2">E-mail</span>
+                            <input type="email" value="{{ partner.email }}" class="form-control" name="email">
+                        </div>
+                    </div>  
+
+                    <div class="row mt-2">
+                        <div class="col-sm-2">
+                            <span>Tipo Parceiro</span>
+                            <select name="type_partners" class="form-control">
+                                <option value="{{ partner.type_partners }}">{{ partner.get_type_partners_display }}</option>
+                                <option disabled value=""> . Escolha um Tipo</option>
+                                <option value="1">Cliente</option>
+                                <option value="2">Fornecedor</option>
+                                <option value="3">Transportadora</option>
+                                <option value="4">Vendedor</option>
+                                <option value="5">Funcionário</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <span>Tipo Pessoa</span>
+                            <select name="type_person" class="form-control">
+                                <option value="{{ partner.type_person }}">{{ partner.get_type_person_display }}</option>
+                                <option disabled value=""> . Escolha um Tipo</option>
+                                <option value="F">Física</option>
+                                <option value="J">Jurídica</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <span>Sexo</span>
+                            <select name="gender" class="form-control">
+                                <option value="{{ partner.gender }}">{{ partner.get_gender_display }}</option>
+                                <option disabled value=""> . Escolha uma Opção</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <span>Grupo</span>
+                            <select name="group" class="form-control">
+                                {% if partner.group_id == None %}
+                                    <option value="">Sem Grupo</option>
+                                {% else %}
+                                    <option value="{{ partner.group_id }}">
+                                        {{ partner.group }}
+                                    </option>
+                                {% endif %}
+                                <option disabled value=""> >>> Escolha um Grupo</option>
+                                {% for group in groups %}
+                                    <option value="{{ group.id }}">{{ group }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <span>SubGrupo</span>
+                            <select name="subgroup" class="form-control">
+                                {% if partner.subgroup_id == None %}
+                                    <option value="">Sem SubGrupo</option>
+                                {% else %}
+                                    <option value="{{ partner.subgroup_id }}">
+                                        {{ partner.subgroup }}
+                                    </option>
+                                {% endif %}
+                                <option disabled value=""> >>> Escolha um SubGrupo</option>
+                                {% for subgroup in subgroups %}
+                                    <option value="{{ subgroup.id }}">{{ subgroup }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row my-3">
+                        <div class="col-sm-10">
+                            <h6>* Os campos Apelido e Documento não podem ficar vazios.</h6>
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" class="btn btn-success btn-sm px-5" value="Alterar">
+                        </div>
+                    </div>
+                    
+                </form>
+
+            </div>
+            
+        </section>
+        
+    </section>
+    
+</main>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block container %}
+
+<header class="header-wrapper">
+
+    {% include 'header.html' %}
+
+    <section id="header-contact">
+
+        <h1 id="titleContact">Rota</h1>
+        <h2 id="subtitleContact">Veja como chegar</h2>
+        <section>
+            <iframe id="rota" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245795.56223344515!2d-48.07744593965978!3d-15.721717481080342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x935a3d18df9ae275%3A0x738470e469754a24!2zQnJhc8OtbGlhLCBERg!5e0!3m2!1spt-BR!2sbr!4v1667769848635!5m2!1spt-BR!2sbr" 
+                width="" height="" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </section>
+
+    </section>
+
+</header>
+
+<main>
+
+    <section class="form-contact">
+        
+        <h1>Entre em Contato</h1>
+        <span id="company-email">Email: sanlisgestao@hotmail.com</span>
+
+        <form class="form" action="{% url 'home:contact' %}" method="get">
+            <label class="label">
+                Nome: <br>
+                <input class="input" type="text" name="name" id="name">
+            </label>
+
+            <label class="label">
+                E-mail: <br>
+                <input class="input" type="email" name="email" id="email">
+            </label>
+
+            <label class="label">
+                Assunto: <br>
+                <select class="select" name="subject" id="subject">
+                    <option value="1">Assunto 1</option>
+                    <option value="2">Assunto 2</option>
+                    <option value="3">Assunto 3</option>
+                    <option value="4">Assunto 4</option>
+                    <option value="5">Assunto 5</option>
+                </select>
+            </label>
+
+            <label class="label">
+                Descrição: <br>
+                <textarea class="textarea" name="description" id="description"></textarea>
+            </label>
+
+            <button class="btn"><span>Enviar</span></button>
+        </form>
+
+    </section>
+    
+</main>
+
+{% endblock %}

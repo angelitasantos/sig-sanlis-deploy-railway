@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block container %}
+
+<header class="header-wrapper">
+        
+    {% include 'header.html' %}
+
+    <section class="company">
+
+        <h1 id="company-name">SANLIS TREINAMENTO E GESTÃO DE ARQUIVOS</h1>
+        <h3>Endereço</h3>
+        <h3 id="company-street">Rua Nome da Rua, 123</h3>
+        <h3 id="company-district">Bairro: Nome</h3>
+        <h3 id="company-city">Belo Horizonte / MG</h3>
+        <h3 id="company-zipcode">CEP: 30.000-000</h3>
+
+    </section>
+
+    <section class="contacts">
+
+        <a id="company-phone" href="">
+            <p><i class="fa fa-phone"></i> 
+                <span title="Telefone" id="company-phone">31 9999-9999</span>
+            </p>
+        </a>
+        <a id="whatsappLink" href="https://web.whatsapp.com/" target="_blank">
+            <p><i class="fa fa-whatsapp"></i> 
+                <span title="Whatsapp" id="company-whastapp">31 99999-9999</span>
+            </p>
+        </a>
+
+    </section>
+
+    <section class="social-media">
+
+        <a id="company-site" title="Blog" href="https://www.google.com/" target="_blank">
+            <i class="fa fa-globe"></i></a>
+        <a id="company-instagram" title="Instagram" href="https://www.instagram.com/" target="_blank">
+            <i class="fa fa-instagram"></i></a>
+        <a id="company-linkedin" title="Linkedin" href="https://www.linkedin.com/" target="_blank">
+            <i class="fa fa-linkedin"></i></a>
+        <a id="company-facebook" title="Facebook" href="https://www.facebook.com/" target="_blank">
+            <i class="fa fa-facebook"></i></a>
+
+    </section>
+
+</header>
+
+{% endblock %}

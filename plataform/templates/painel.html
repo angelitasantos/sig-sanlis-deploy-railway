@@ -1,0 +1,31 @@
+{% extends 'company/base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block container %}
+
+<main class="container-fluid py-3">
+
+    {% include 'breadcrumb.html' %}
+
+    {% include 'messages.html' %}
+
+    <section class="row">
+
+        <div class="col-md-9">
+            <h2 class="text-success">Painel</h2>
+        </div>
+
+    </section>
+
+    <section class="body-box">
+
+        {% include 'painel/info_cards.html' %}
+
+        {% include 'painel/info_table.html' %}
+        
+    </section>
+
+</main>
+
+{% endblock %}

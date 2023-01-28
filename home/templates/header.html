@@ -1,0 +1,24 @@
+<section class="checkbox-container">
+
+    <div class="checkbox-wrapper">
+
+        <input type="checkbox" id="toggle">
+        <label class="checkbox" for="toggle">
+            <div class="trace"></div>
+            <div class="trace"></div>
+            <div class="trace"></div>
+        </label>
+
+        <div class="menu"></div>
+        <nav class="menu-items">
+            <ul>
+                <li><a href="{% url 'home:home' %}">Home</a></li>
+                <li><a href="{% url 'home:about' %}">Sobre</a></li>
+                <li><a href="{% url 'home:contact' %}">Contato</a></li>
+                <li><a href="{% url 'plataform:dashboard' %}">Painel</a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+</section>

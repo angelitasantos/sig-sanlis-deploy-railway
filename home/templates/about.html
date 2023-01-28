@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block head %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block container %}
+
+<header class="header-wrapper">
+
+    {% include 'header.html' %}
+
+    <section id="header-about">
+        <h2 id="titleAbout">SANLIS GESTÃO</h2>
+        <br>
+        <h1 id="subtitleAbout">Melhorar a eficiência dos processos através do treinamento e da gestão de arquivos.</h1>
+    </section>
+
+</header>
+
+<main class="container">
+
+    {% include 'about_container.html' %}
+
+</main>
+
+<footer class="backTop">
+    <a href="{% url 'home:about' %}">
+        <button><span><i class="fa fa-arrow-up"></i> Topo</span></button>
+    </a>
+</footer>
+
+{% endblock %}

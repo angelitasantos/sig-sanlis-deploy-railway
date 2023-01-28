@@ -1,0 +1,144 @@
+{% extends 'company/base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+{% load widget_tweaks %}
+{% load bootstrap %}
+
+{% block css %}
+
+  <style>
+    span.required:after {
+      content: "*";
+      color: red;
+    }
+    .form-control {
+      margin: 5px;
+    }
+  </style>
+
+{% endblock css %}
+
+{% block container %}
+
+<main class="container-fluid py-3">
+
+  {% include 'breadcrumb_stock.html' %}
+
+  {% include 'messages.html' %}
+
+  <section class="row">
+
+    <div class="col-md-10">
+      <h3 class="text-success">Registro de {{ subtitle }}</h3>
+    </div>
+
+    <div class="col-md-2">
+      <a href="{% url 'stock:stock_sale_list' %}">
+        <button type="button" class="btn btn-success btn-sm px-2">
+          <span class="fa fa-arrow-left"></span> Voltar
+        </button>
+      </a>
+    </div>
+
+  </section>
+
+  <section class="body-box">
+
+    <div class="container-fluid">
+
+      <form method="POST" novalidate>
+        {% csrf_token %}
+
+        <section class="row mt-3">
+          
+          <legend style="border-bottom: 1px solid #e5e5e5;">Dados Gerais</legend>
+
+          {% for field in form.visible_fields %}
+
+          <div class="col-sm-3">
+            
+            <div class="form-group{% if field.errors %} has-error {% endif %}">
+
+              <label for="{{ field.id_for_label }}">
+                {% if field.field.required %}
+                  <span class="required">{{ field.label }} </span>
+                {% else %}
+                  {{ field.label }}
+                {% endif %}
+              </label>
+
+              {% render_field field class="form-control" %}
+              
+              {% for error in field.errors %}
+                <span class="text-muted">{{ error }}</span>
+              {% endfor %}
+
+            </div>
+            
+          </div>
+          {% endfor %}
+          {{ formset.management_form }}
+
+        </section>
+
+        <section class="row pt-3">
+
+          <legend style="border-bottom: 1px solid #e5e5e5;">Itens</legend>
+          
+          <div class="col-sm-12">
+
+            <div id="estoque" class="form-inline">
+              {% for item_estoque_form in formset %}
+                <div id="item-{{ forloop.counter0 }}" class="form-group">
+                  {{ item_estoque_form|bootstrap }}
+                </div>
+              {% endfor %}
+            </div>
+
+          </div>
+
+        </section>
+
+        <span id="add-item" class="btn btn-sm btn-success">
+          <i class="fa fa-plus px-2"></i> Adicionar
+        </span>
+
+        <section class="row float-right">
+
+          <div class="col-sm-12 my-5">
+            <div class="form-inline buttons">
+              <button class="btn btn-sm btn-primary mx-2" value="Save">
+                <i class="fa fa-floppy-o px-2"></i>
+                Salvar
+              </button>
+              <a href="{% url 'stock:stock_sale_list' %}" class="btn btn-sm btn-danger px-2">
+                <i class="fa fa-times px-2"></i>
+                Cancelar
+              </a>
+            </div>
+          </div>
+
+        </section>
+
+      </form>
+
+    </div>
+
+  </section>
+
+</main>
+
+{% endblock %}
+
+{% block js %}
+
+  <script src="{% static 'js/stock_output.js' %}"></script>
+
+  <script type="text/html" id="item-estoque">
+    <div id="item-__prefix__" class="form-group">
+      {{ formset.empty_form|bootstrap }}
+    </div>
+  </script>
+
+{% endblock js %}

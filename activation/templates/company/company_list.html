@@ -1,0 +1,87 @@
+{% extends 'company/base.html' %}
+{% load static %}
+{% block title %} {{ title }} {% endblock %}
+
+{% block container %}
+
+<main class="container-fluid py-3">
+
+    {% include 'company/breadcrumb.html' %}
+
+    {% include 'messages.html' %}
+
+    <section class="row">
+
+        <div class="col-md-10">
+            <h3 class="text-success">Gerenciar Empresas</h3>
+        </div>
+
+        <div class="col-md-2">
+            <a href="{% url 'activation:company_create' %}">
+                <button type="button" class="btn btn-success btn-sm px-2">
+                    <span class="fa fa-plus"></span> Nova Empresa
+                </button>
+            </a>
+        </div>
+
+    </section>
+
+    <section class="body-box">
+
+        <form action="{% url 'activation:companies' %}" method="GET">
+            {% csrf_token %}
+            <div class="row">
+                
+                <section class="col-md-5 mb-2">
+                    <input type="text" placeholder="Buscar pelo Nome" class="form-control" name="name">
+                </section>
+                
+                <section class="col-md-2">
+                    <input type="submit" value="FILTRAR" class="btn btn-success px-5">
+                </section>
+
+            </div>
+        </form>
+
+        <table class="table table-sm table-responsive-sm table-hover mt-2">
+
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nome Fantasia</th>
+                    <th>Token</th>
+                    <th>Phone1</th>
+                    <th>Phone2</th>
+                    <th>CNPJ</th>
+                    <th>Inicio Atividade</th>
+                    <th>Usuário Main</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+
+            <tbody class="table-group-divider">
+                {% for company in companies %}
+                <tr class="tabela-linha">
+                    <td><a href="{% url 'activation:company_view' company.id %}">{{ company.name }}</a></td>
+                    <td>{{ company.token_company }}</td>
+                    <td>{{ company.phone }}</td>
+                    <td>{{ company.whatsapp_number }}</td>
+                    <td>{{ company.cnpj }}</td>
+                    <td>{{ company.start_data|date:"d/m/Y"|default:'---' }}</td>
+                    <td>               
+                        <span value="{{ company.user_id }}">{{ company.user_company }}</span> 
+                    </td>
+                    <td><a class="btn-sm btn-danger" href="{% url 'activation:company_delete' company.id %}"
+                        onclick="return confirm('Você tem certeza que deseja excluir esta empresa ?')">
+                        <i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        
+    </section>
+
+</main>
+
+{% endblock %}

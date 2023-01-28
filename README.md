@@ -24,6 +24,7 @@ clonar o repositório
 - pip install python-dotenv
 - pip install django-widget-tweaks
 - pip install django-bootstrap-form
+- pip install psycopg2
 - pip install gunicorn
 - JQuery / ajax para atualizar saldo de estoque
 

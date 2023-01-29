@@ -32,8 +32,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-if not DEBUG:
-    CSRF_TRUSTED_ORIGINS = ['https://sig-sanlis-test.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://sig-sanlis-test.up.railway.app']
 
 ALLOWED_HOSTS = ['*', 'localhost']
 

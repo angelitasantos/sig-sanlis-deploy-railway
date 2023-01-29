@@ -13,20 +13,27 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from django.contrib.messages import constants
 import os
+from dotenv import load_dotenv
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n^@+$wx+dp=&epyjry93%e0ba3lxmes-x#5*t#kzoiaz)=t*^^'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS = ['https://sig-sanlis-test.up.railway.app']
 
 ALLOWED_HOSTS = ['*', 'localhost']
 
@@ -91,16 +98,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 #    }
 #}
 
+import dj_database_url
+DATABASE_URL = os.getenv("DATABASE_URL")
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'usersdb', 
-        'USER': 'angelita', 
-        'PASSWORD': 'angelita$123',
-        'HOST': '127.0.0.1', 
-        'PORT': '5432',
-    }
+    "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 }
+
+
 
 
 # Password validation

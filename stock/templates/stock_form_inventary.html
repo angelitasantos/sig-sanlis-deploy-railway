@@ -133,7 +133,7 @@
 
 {% block js %}
 
-  <script src="{% static 'js/stock_inventary.js' %}"></script>
+  {% include 'script_stock_inventary.html' %}
 
   <script type="text/html" id="item-estoque">
     <div id="item-__prefix__" class="form-group">

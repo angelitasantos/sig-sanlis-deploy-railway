@@ -3,13 +3,13 @@
 
 {% block head %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% include 'stylesheets.html' %}
 {% endblock %}
 
 {% block container %}
 
 <header class="header-wrapper">
-        
+
     {% include 'header.html' %}
 
     <section class="company">
@@ -26,12 +26,12 @@
     <section class="contacts">
 
         <a id="company-phone" href="">
-            <p><i class="fa fa-phone"></i> 
+            <p><i class="fa fa-phone"></i>
                 <span title="Telefone" id="company-phone">31 9999-9999</span>
             </p>
         </a>
         <a id="whatsappLink" href="https://web.whatsapp.com/" target="_blank">
-            <p><i class="fa fa-whatsapp"></i> 
+            <p><i class="fa fa-whatsapp"></i>
                 <span title="Whatsapp" id="company-whastapp">31 99999-9999</span>
             </p>
         </a>

@@ -26,6 +26,7 @@ clonar o repositório
 - pip install django-bootstrap-form
 - pip install psycopg2
 - pip install dj-database-url
+- pip install whitenoise
 - pip install gunicorn
 - JQuery / ajax para atualizar saldo de estoque
 

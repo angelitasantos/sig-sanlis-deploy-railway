@@ -38,7 +38,7 @@ class Estoque(TimeStampedModel):
                         ('2', 'Em Aberto'),
                         ('3', 'Finalizado'))
     tipo_registro = models.CharField(max_length=1, choices=choices_tipo_registro, default="2")
-    status = models.CharField(max_length=1, choices=choices_status, default="2")
+    status = models.CharField(max_length=1, choices=choices_status, default="3")
 
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
     partner = models.ForeignKey(Partner, on_delete=models.CASCADE)
@@ -57,7 +57,7 @@ class Estoque(TimeStampedModel):
     
     def nf_formated(self):
         if self.nf:
-            return str(self.nf).zfill(3)
+            return str(self.nf).zfill(5)
         return '---'
 
 
@@ -134,7 +134,7 @@ class EstoqueItens(models.Model):
     )
     produto = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField()
-    saldo = models.PositiveIntegerField()
+    saldo = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ('pk',)

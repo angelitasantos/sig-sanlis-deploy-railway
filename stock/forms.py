@@ -20,14 +20,29 @@ class EstoqueForm(forms.ModelForm):
             self.fields['company'].queryset = Company.objects.filter(id=self.company)
 
 
-
 class EstoqueItensEntradaForm(forms.ModelForm):
 
     class Meta:
         model = EstoqueItens
-        fields = '__all__'
+        fields = ('produto', 'quantidade', 'saldo')
 
 
+class EstoqueItensServiceForm(forms.ModelForm):
+
+    class Meta:
+        model = EstoqueItens
+        fields = ('produto', 'quantidade')
+
+    def __init__(self, *args, **kwargs):
+        super(EstoqueItensServiceForm, self).__init__(*args, **kwargs)
+
+        self.fields['produto'].queryset = Item.objects.filter(
+                                                                stock_qtd=0, 
+                                                                stock_control=False,
+                                                                company=5
+                                                                )
+
+        
 class EstoqueItensSaidaForm(forms.ModelForm):
 
     class Meta:

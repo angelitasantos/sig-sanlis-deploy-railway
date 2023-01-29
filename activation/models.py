@@ -41,8 +41,12 @@ class Company(models.Model):
 
     user_company = models.ForeignKey(User, blank=True, on_delete=models.DO_NOTHING)
 
+    class Meta:
+        verbose_name = 'empresa'
+        verbose_name_plural = 'empresas'
+
     def __str__(self):
-        return self.name
+        return self.name    
 
 
 class TokenUser(models.Model):
@@ -51,5 +55,10 @@ class TokenUser(models.Model):
     company = models.ForeignKey(Company, on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
+    class Meta:
+        verbose_name = 'token usuário'
+        verbose_name_plural = 'token usuários'
+
     def __str__(self):
         return self.user.username
+    

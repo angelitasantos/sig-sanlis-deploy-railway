@@ -18,7 +18,7 @@ from .models import (
                         StockInventary,
                         EstoqueItens
                     )
-from .forms import EstoqueForm, EstoqueItensEntradaForm, EstoqueItensSaidaForm
+from .forms import EstoqueForm, EstoqueItensEntradaForm, EstoqueItensSaidaForm, EstoqueItensServiceForm
 
 
 sig = 'SIG SANLIS | '
@@ -281,10 +281,10 @@ def stock_add(request, template_name, movimento, tipo_movimento, url, form, titl
     item_estoque_formset = inlineformset_factory(
         Estoque,    
         EstoqueItens,
-        form=form,
-        extra=0,
-        min_num=1,
-        validate_min=True,
+        form = form,
+        extra = 0,
+        min_num = 1,
+        validate_min = True,
     )
     if request.method == 'POST':
         form = EstoqueForm(request.user, request.POST, instance=estoque_form, prefix='main')
@@ -323,7 +323,7 @@ def stock_sale_add(request):
     url = 'stock:stock_sale_detail'
     movimento = 'S'
     tipo_movimento = 'V'
-    form=EstoqueItensSaidaForm
+    form = EstoqueItensSaidaForm
 
     context = stock_add(request, template_name, movimento, tipo_movimento, url, form, title, subtitle)
     if context.get('pk'):
@@ -339,7 +339,7 @@ def stock_service_add(request):
     url = 'stock:stock_service_detail'
     movimento = 'S'
     tipo_movimento = 'S'
-    form=EstoqueItensSaidaForm
+    form = EstoqueItensServiceForm
 
     context = stock_add(request, template_name, movimento, tipo_movimento, url, form, title, subtitle)
     if context.get('pk'):
@@ -355,7 +355,7 @@ def stock_shopping_add(request):
     url = 'stock:stock_shopping_detail'
     movimento = 'E'
     tipo_movimento = 'C'
-    form=EstoqueItensEntradaForm
+    form = EstoqueItensEntradaForm
 
     context = stock_add(request, template_name, movimento, tipo_movimento, url, form, title, subtitle)
     if context.get('pk'):
@@ -371,7 +371,7 @@ def stock_production_add(request):
     url = 'stock:stock_production_detail'
     movimento = 'E'
     tipo_movimento = 'P'
-    form=EstoqueItensEntradaForm
+    form = EstoqueItensEntradaForm
 
     context = stock_add(request, template_name, movimento, tipo_movimento, url, form, title, subtitle)
     if context.get('pk'):
@@ -387,7 +387,7 @@ def stock_inventary_add(request):
     url = 'stock:stock_inventary_detail'
     movimento = 'E'
     tipo_movimento = 'I'
-    form=EstoqueItensEntradaForm
+    form = EstoqueItensEntradaForm
 
     context = stock_add(    
                             request, template_name, movimento, tipo_movimento, 

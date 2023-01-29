@@ -12,7 +12,7 @@ criar um repositório novo
 - git push -u origin main
 
 clonar o repositório
-- git clone https://github.com/angelitasantos/sig-sanlis-django.git
+- git clone https://github.com/angelitasantos/sig-sanlis-deploy-railway
 
 #### ambiente virtual
 - python3 -m venv venv

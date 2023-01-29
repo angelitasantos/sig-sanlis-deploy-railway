@@ -11,6 +11,8 @@ class PartnerGroup(models.Model):
 
     class Meta:
         ordering = ('group',)
+        verbose_name = 'grupo de parceiros'
+        verbose_name_plural = 'grupos de parceiros'
 
     def __str__(self):
         return self.group
@@ -22,6 +24,8 @@ class PartnerSubGroup(models.Model):
 
     class Meta:
         ordering = ('subgroup',)
+        verbose_name = 'subgrupo de parceiros'
+        verbose_name_plural = 'subgrupos de parceiros'
 
     def __str__(self):
         return self.subgroup
@@ -91,6 +95,8 @@ class Partner(TimeStampedModel):
 
     class Meta:
         ordering = ('nickname',)
+        verbose_name = 'parceiro'
+        verbose_name_plural = 'parceiros'
 
     def __str__(self):
         return self.nickname
@@ -104,6 +110,8 @@ class Category(models.Model):
 
     class Meta:
         ordering = ('category',)
+        verbose_name = 'categoria'
+        verbose_name_plural = 'categorias'
 
     def __str__(self):
         return self.category
@@ -116,6 +124,8 @@ class UnMed(models.Model):
 
     class Meta:
         ordering = ('description',)
+        verbose_name = 'unidade'
+        verbose_name_plural = 'unidades'
 
     def __str__(self):
         return self.un_med
@@ -129,6 +139,8 @@ class Brand(models.Model):
 
     class Meta:
         ordering = ('brand',)
+        verbose_name = 'marca'
+        verbose_name_plural = 'marcas'
 
     def __str__(self):
         return self.brand
@@ -192,6 +204,8 @@ class Item(TimeStampedModel):
 
     class Meta:
         ordering = ('title',)
+        verbose_name = 'item'
+        verbose_name_plural = 'itens'
 
     def __str__(self):
         return self.title

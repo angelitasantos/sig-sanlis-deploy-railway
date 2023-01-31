@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from activation.models import TokenUser, Company
 from .models import PartnerGroup, PartnerSubGroup, Partner, Category, UnMed, Item, Brand
 from django.core.paginator import Paginator
+from django.db.models import Sum
 
 
 sig = 'SIG SANLIS | '
@@ -17,8 +18,16 @@ registers_for_page = 5
 def dashboard(request):
     title = sig + 'Painel'
 
+    user_token_company = TokenUser.objects.filter(user_id=request.user).values('company_id')
+    user_token_company_id = user_token_company.values_list('company_id')
+    company_id = user_token_company_id[0][0]
+
+    total = Item.objects.filter(company_id=company_id).aggregate(sum=Sum('stock_qtd'))
+    stock_total = total
+
     context =   {   
                     'title': title,
+                    'stock_total': stock_total,
                     'user_login': request.user
                 }
 

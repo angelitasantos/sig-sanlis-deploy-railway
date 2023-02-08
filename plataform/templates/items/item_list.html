@@ -73,6 +73,7 @@
                     <th style="width:100px" class="text-center">Localização</th>
                     <th style="width:70px" class="text-right">Preço</th>
                     <th style="width:70px" class="text-right">Custo</th>
+                    <th style="width:70px" class="text-right">Custo Total</th>
                     <th style="width:30px" class="text-center">Editar</th>
                     <th style="width:30px" class="text-center">Deletar</th>
                 </tr>
@@ -95,6 +96,7 @@
                     <td style="width:100px" class="text-center">{{ item.location }}</td>
                     <td style="width:70px" class="text-right">{{ item.price_term|floatformat:2 }}</td>
                     <td style="width:70px" class="text-right">{{ item.price_custom|floatformat:2 }}</td>
+                    <td style="width:70px" class="text-right">{{ item.stock_custom|floatformat:2 }}</td>
                     <td style="width:30px" class="text-center"><a class="btn-sm btn-warning" href="{% url 'plataform:item_view' item.id %}">
                         <i class="fa fa-edit"></i></a>
                     </td>

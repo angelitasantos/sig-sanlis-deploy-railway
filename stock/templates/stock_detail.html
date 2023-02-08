@@ -45,7 +45,7 @@
           </tr>
           <tr>
             <th class="text-right">Funcionário</th>
-            <td>{{ object.funcionario.first_name }}</td>
+            <td>{{ object.funcionario.username }}</td>
           </tr>
         </tbody>
 
@@ -59,7 +59,10 @@
         <tr>
           <th>Produto</th>
           <th>Quantidade</th>
+          <th>Custo Unitário Compra</th>
+          <th>Custo Total Compra</th>
           <th>Saldo</th>
+          <th>Custo</th>
         </tr>
       </thead>
 
@@ -68,7 +71,10 @@
           <tr>
             <td>{{ obj.produto }}</td>
             <td>{{ obj.quantidade }}</td>
+            <td>{{ obj.custo_unitario }}</td>
+            <td>{{ obj.custo_total_registro }}</td>
             <td>{{ obj.saldo }}</td>
+            <td>{{ obj.custo_total }}</td>
           </tr>
         {% endfor %}
       </tbody>

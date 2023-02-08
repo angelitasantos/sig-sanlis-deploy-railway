@@ -166,6 +166,7 @@ class Item(TimeStampedModel):
     price_custom = models.FloatField(null=True)
 
     stock_qtd = models.FloatField(null=True)
+    stock_custom = models.FloatField(null=True)
     stock_control = models.BooleanField()
 
     stock_min = models.FloatField(null=True)
@@ -216,4 +217,6 @@ class Item(TimeStampedModel):
             'pk': self.pk,
             'produto': self.title,
             'estoque': self.stock_qtd,
+            'preco_custo': self.price_custom,
+            'estoque_custo': self.stock_custom,
         }

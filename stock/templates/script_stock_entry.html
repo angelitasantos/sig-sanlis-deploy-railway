@@ -1,11 +1,27 @@
 <script>
 
     $(document).ready(function () {
-
-        // AJAX para Saldo Insere classe no primeiro item de produto
+        // Insere classe no primeiro item de produto
         $('#id_estoque-0-produto').addClass('clProduto');
         $('#id_estoque-0-quantidade').addClass('clQuantidade');
+        $('#id_estoque-0-custo_unitario').addClass('clCustoUnitario');
+        $('#id_estoque-0-custo_total_registro').addClass('clCustoTotalRegistro');
+        $('#id_estoque-0-custo_total').addClass('clCustoTotal');
 
+        // Desabilita o primeiro campo 'Saldo'
+        $('#id_estoque-0-saldo').prop('type', 'hidden');
+        // Cria um span para mostrar o saldo na tela.
+        $('label[for="id_estoque-0-saldo"]').append('<span id="id_estoque-0-saldo-span" class="lead" style="padding: 0 20px;"></span>');
+
+        // Desabilita o primeiro campo 'Custo Total Registro'
+        $('#id_estoque-0-custo_total_registro').prop('type', 'hidden');
+        // Cria um span para mostrar o custo total registro na tela.
+        $('label[for="id_estoque-0-custo_total_registro"]').append('<span id="id_estoque-0-custo_total_registro-span" class="lead" style="padding: 0 20px;"></span>');
+
+        // Desabilita o primeiro campo 'Custo Total'
+        $('#id_estoque-0-custo_total').prop('type', 'hidden');
+        // Cria um span para mostrar o custo total na tela.
+        $('label[for="id_estoque-0-custo_total"]').append('<span id="id_estoque-0-custo_total-span" class="lead" style="padding: 0 20px;"></span>');
 
         $('#add-item').click(function (ev) {
             ev.preventDefault();
@@ -17,23 +33,43 @@
             // update form count
             $('#id_estoque-TOTAL_FORMS').attr('value', count + 1);
 
+            // Desabilita o campo 'Saldo' / 'Custo Total Registro' / 'Custo Total'
+            $('#id_estoque-' + (count) + '-saldo').prop('type', 'hidden');
+            $('#id_estoque-' + (count) + '-custo_total_registro').prop('type', 'hidden');
+            $('#id_estoque-' + (count) + '-custo_total').prop('type', 'hidden');
+
             // some animate to scroll to view our new form
             $('html, body').animate({
                 scrollTop: $("#add-item").position().top - 200
             }, 800);
 
-            // AJAX para Saldo
             $('#id_estoque-' + (count) + '-produto').addClass('clProduto');
             $('#id_estoque-' + (count) + '-quantidade').addClass('clQuantidade');
+            $('#id_estoque-' + (count) + '-custo_unitario').addClass('clCustoUnitario');
+            $('#id_estoque-' + (count) + '-custo_total_registro').addClass('clCustoTotalRegistro');
+            $('#id_estoque-' + (count) + '-custo_total').addClass('clCustoTotal');
+
+            // Cria um span para mostrar o 'Saldo' / 'Custo Total Registro' / 'Custo Total' na tela.
+            $('label[for="id_estoque-' + (count) + '-saldo"]').append('<span id="id_estoque-' + (count) + '-saldo-span" class="lead" style="padding-left: 10px;"></span>')
+            $('label[for="id_estoque-' + (count) + '-custo_total_registro"]').append('<span id="id_estoque-' + (count) + '-custo_total_registro-span" class="lead" style="padding-left: 10px;"></span>')
+            $('label[for="id_estoque-' + (count) + '-custo_total"]').append('<span id="id_estoque-' + (count) + '-custo_total-span" class="lead" style="padding-left: 10px;"></span>')
 
         });
     });
 
-    // AJAX para Saldo
     let estoque
     let saldo
-    let campo
+    let campo_quantidade
+    let campo2
     let quantidade
+
+    let estoque_custo
+    let custo_total
+    let campo_custo_total1
+    let campo_custo_total2
+    let campo3
+    let custo_unitario
+    let custo_total_registro
 
     $(document).on('change', '.clProduto', function () {
         let self = $(this)
@@ -45,9 +81,15 @@
             type: 'GET',
             success: function (response) {
                 estoque = response.data[0].estoque
-                campo = self.attr('id').replace('produto', 'quantidade')
+                campo_quantidade = self.attr('id').replace('produto', 'quantidade');
+
+                estoque_custo = response.data[0].estoque_custo
+                campo_custo_total2 = self.attr('id').replace('produto', 'custo_total');
+
                 // Remove o valor do campo 'quantidade'
-                $('#' + campo).val('')
+                $('#' + campo_quantidade).val('');
+                // Remove o valor do campo 'custo_total'
+                $('#' + campo_custo_total2).val('');
             },
             error: function (xhr) {
                 // body...
@@ -57,10 +99,40 @@
 
     $(document).on('change', '.clQuantidade', function () {
         quantidade = $(this).val();
+        // Aqui é feito o cálculo de soma do estoque
         saldo = Number(quantidade) + Number(estoque);
-        campo = $(this).attr('id').replace('quantidade', 'saldo')
+        campo_quantidade = $(this).attr('id').replace('quantidade', 'saldo');
+        // Desabilita o 'Saldo'
+        $('#' + campo_quantidade).prop('type', 'hidden');
         // Atribui o saldo ao campo 'saldo'
-        $('#' + campo).val(saldo)
+        $('#' + campo_quantidade).val(saldo);
+        campo2 = $(this).attr('id').replace('quantidade', 'saldo-span');
+        // Atrubui o saldo ao campo 'id_estoque-x-saldo-span'
+        $('#' + campo2).text(saldo)
+    });
+
+    $(document).on('change', '.clCustoUnitario', function () {
+        custo_unitario = $(this).val();
+        // Aqui é feito o cálculo de soma do custo do estoque
+        custo_total_registro = (Number(quantidade) * Number(custo_unitario));
+        custo_total = custo_total_registro + Number(estoque_custo);
+        campo_custo_total2 = $(this).attr('id').replace('custo_unitario', 'custo_total');
+        // Desabilita o 'custo_total'
+        $('#' + campo_custo_total1).prop('type', 'hidden');
+        $('#' + campo_custo_total2).prop('type', 'hidden');
+
+        // Atribui o saldo ao campo 'custo_total registro'
+        $('#' + campo_custo_total1).val(custo_total_registro);
+        campo_custo_total1 = $(this).attr('id').replace('custo_unitario', 'custo_total_registro-span');
+        // Atrubui o saldo ao campo 'id_estoque-x-custo_total_registro-span'
+        $('#' + campo_custo_total1).text(custo_total_registro);
+
+        // Atribui o saldo ao campo 'custo_total'
+        $('#' + campo_custo_total2).val(custo_total);
+        campo3 = $(this).attr('id').replace('custo_unitario', 'custo_total-span');
+        // Atrubui o saldo ao campo 'id_estoque-x-custo_total-span'
+        $('#' + campo3).text(custo_total);
+
     });
 
 </script>

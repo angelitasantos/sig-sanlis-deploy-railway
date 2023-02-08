@@ -40,7 +40,7 @@ class Estoque(TimeStampedModel):
     tipo_registro = models.CharField(max_length=1, choices=choices_tipo_registro, default="2")
     status = models.CharField(max_length=1, choices=choices_status, default="3")
 
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Empresa')
     partner = models.ForeignKey(Partner, on_delete=models.CASCADE)
     funcionario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     nf = models.PositiveIntegerField('nota fiscal', null=True, blank=True)
@@ -49,6 +49,8 @@ class Estoque(TimeStampedModel):
 
     class Meta:
         ordering = ('-created',)
+        verbose_name = 'estoque'
+        verbose_name_plural = 'estoques'
 
     def __str__(self):
         if self.nf:
@@ -134,10 +136,16 @@ class EstoqueItens(models.Model):
     )
     produto = models.ForeignKey(Item, on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField()
-    saldo = models.PositiveIntegerField(default=0)
+    saldo = models.PositiveIntegerField(blank=True, default=0)
+    custo_unitario = models.FloatField(null=True, blank=True, default=0)
+    custo_unitario_atual = models.FloatField(null=True, blank=True, default=0)
+    custo_total_registro = models.FloatField(null=True, blank=True, default=0)
+    custo_total = models.FloatField(null=True, blank=True, default=0)
 
     class Meta:
         ordering = ('pk',)
+        verbose_name = 'estoque de item'
+        verbose_name_plural = 'estoque de itens'
 
     def __str__(self):
         return '{} - {} - {}'.format(self.pk, self.estoque.pk, self.produto)

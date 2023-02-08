@@ -283,6 +283,7 @@ def stock_add(request, template_name, movimento, tipo_movimento, url, form, titl
         EstoqueItens,
         form = form,
         extra = 0,
+        can_delete=False,
         min_num = 1,
         validate_min = True,
     )
@@ -301,6 +302,8 @@ def stock_add(request, template_name, movimento, tipo_movimento, url, form, titl
             form.save()
             formset.save()
             stock_moviment(form)
+            stock_custom_moviment(form)
+            price_custom_moviment(form)
             return {'pk': form.pk}
     else:
         form = EstoqueForm(request.user, instance=estoque_form, prefix='main')
@@ -405,4 +408,23 @@ def stock_moviment(form):
     for item in produtos:
         produto = Item.objects.get(pk=item.produto.pk)
         produto.stock_qtd = item.saldo
+        produto.save()
+
+
+def stock_custom_moviment(form):
+    # Pega os custos a partir da instância do formulário (Estoque).
+    produtos = form.estoques.all()
+    for item in produtos:
+        produto = Item.objects.get(pk=item.produto.pk)
+        produto.stock_custom = item.custo_total
+        produto.save()
+
+
+def price_custom_moviment(form):
+    # Pega o custo unitario a partir da instância do formulário (Estoque).
+    produtos = form.estoques.all()
+    for item in produtos:
+        produto = Item.objects.get(pk=item.produto.pk)
+        item.custo_unitario_atual = float(item.custo_total) / float(item.saldo)
+        produto.price_custom = item.custo_unitario_atual
         produto.save()

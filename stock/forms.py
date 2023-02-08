@@ -24,7 +24,8 @@ class EstoqueItensEntradaForm(forms.ModelForm):
 
     class Meta:
         model = EstoqueItens
-        fields = ('produto', 'quantidade', 'saldo')
+        fields = ('produto', 'quantidade', 'custo_unitario', 'custo_total_registro', 'saldo', 'custo_total')
+
 
 
 class EstoqueItensServiceForm(forms.ModelForm):

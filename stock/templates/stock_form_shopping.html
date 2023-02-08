@@ -7,15 +7,16 @@
 
 {% block css %}
 
-  <style>
-    span.required:after {
-      content: "*";
-      color: red;
-    }
-    .form-control {
-      margin: 5px;
-    }
-  </style>
+<style>
+  span.required:after {
+    content: "*";
+    color: red;
+  }
+
+  .form-control {
+    margin: 5px;
+  }
+</style>
 
 {% endblock css %}
 
@@ -51,31 +52,31 @@
         {% csrf_token %}
 
         <section class="row mt-3">
-          
+
           <legend style="border-bottom: 1px solid #e5e5e5;">Dados Gerais</legend>
 
           {% for field in form.visible_fields %}
 
           <div class="col-sm-3">
-            
+
             <div class="form-group{% if field.errors %} has-error {% endif%}">
 
               <label for="{{ field.id_for_label }}">
                 {% if field.field.required %}
-                  <span class="required">{{ field.label }} </span>
+                <span class="required">{{ field.label }} </span>
                 {% else %}
-                  {{ field.label }}
+                {{ field.label }}
                 {% endif %}
               </label>
 
               {% render_field field class="form-control" %}
-              
+
               {% for error in field.errors %}
-                <span class="text-muted">{{ error }}</span>
+              <span class="text-muted">{{ error }}</span>
               {% endfor %}
 
             </div>
-            
+
           </div>
           {% endfor %}
           {{ formset.management_form }}
@@ -85,14 +86,14 @@
         <section class="row pt-3">
 
           <legend style="border-bottom: 1px solid #e5e5e5;">Itens</legend>
-          
+
           <div class="col-sm-12">
 
             <div id="estoque" class="form-inline">
               {% for item_estoque_form in formset %}
-                <div id="item-{{ forloop.counter0 }}" class="form-group">
-                  {{ item_estoque_form|bootstrap }}
-                </div>
+              <div id="item-{{ forloop.counter0 }}" class="form-group">
+                {{ item_estoque_form|bootstrap }}
+              </div>
               {% endfor %}
             </div>
 
@@ -133,9 +134,9 @@
 
 {% block js %}
 
-  {% include 'script_stock_entry.html' %}
+{% include 'script_stock_entry.html' %}
 
-  <script type="text/html" id="item-estoque">
+<script type="text/html" id="item-estoque">
     <div id="item-__prefix__" class="form-group">
       {{ formset.empty_form|bootstrap }}
     </div>

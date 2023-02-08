@@ -358,8 +358,8 @@ def item_create(request):
     
     elif request.method == "POST":
         title = request.POST.get('title').upper()
-        description = request.POST.get('description')
-        location = request.POST.get('location')
+        description = request.POST.get('description').upper()
+        location = request.POST.get('location').upper()
         reference = request.POST.get('reference')
 
         stock_qtd1 = request.POST.get('stock_qtd')
@@ -376,6 +376,8 @@ def item_create(request):
 
         price_custom1 = request.POST.get('price_custom')
         price_custom = 0 if price_custom1 == "" else request.POST.get('price_custom').replace(',', '.')
+
+        stock_custom = float(price_custom) * float(stock_qtd)
 
         company_id = request.POST.get('company')
         stock_control = request.POST.get('stock_control')
@@ -401,6 +403,7 @@ def item_create(request):
                         reference=reference,
 
                         stock_qtd=stock_qtd,
+                        stock_custom=stock_custom,
                         price_custom=price_custom,
                         price_in_cash=price_in_cash,
                         price_term=price_term,
@@ -476,6 +479,8 @@ def item_update(request, id):
     price_promotion1 = request.POST.get('price_promotion')
     price_promotion = 0 if price_promotion1 == "" else request.POST.get('price_promotion').replace(',', '.')
 
+    stock_custom = float(price_custom) * float(stock_qtd)
+
     company_id = request.POST.get('company')
     stock_control = request.POST.get('stock_control')
     type_item = request.POST.get('type_item')
@@ -519,6 +524,7 @@ def item_update(request, id):
             item.reference = reference
 
             item.stock_qtd = stock_qtd
+            item.stock_custom = stock_custom
             item.price_custom = price_custom
             item.price_in_cash = price_in_cash
             item.price_term = price_term

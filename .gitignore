@@ -121,6 +121,7 @@ celerybeat.pid
 
 # Environments
 .env
+pgdata.txt
 .venv
 env/
 venv/

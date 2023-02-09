@@ -98,7 +98,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-"""
+
 
 import dj_database_url
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -107,6 +107,18 @@ DATABASES = {
     "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=1800),
 }
 
+"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'usersdb', 
+        'USER': 'angelita', 
+        'PASSWORD': 'angelita$123',
+        'HOST': '127.0.0.1', 
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation

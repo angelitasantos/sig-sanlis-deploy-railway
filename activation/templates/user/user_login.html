@@ -7,51 +7,73 @@
 
 {% block container %}
 
-<main class="container-fluid mt-5">
+<main class="container-fluid my-5">
 
   <div class="row">
 
     <section class="col-md-3"></section>
 
-    <section class="col-md-6">
+    <section class="col-md-6 border border-success shadow-lg p-3 mb-5 bg-body-tertiary rounded m-3">
 
-      <div class="card m-3">
+        <section class="card-header border-bottom border-secondary">
 
-        <div class="card-header">
-          <h3 class="title">Seja Bem Vindo(a)</h3>
+          <a class="text-success" href="{% url 'home:home' %}">
+            <h4 class="title font-weight-bold">Seja Bem Vindo(a)</h4>
+          </a>
+          
           <h6 class="subtitle">Entre com sua conta</h6>
           {% include 'messages.html' %}
-        </div>
-          
-        <div class="card-body">
+
+        </section>
+
+        <section class="card-body">
+
           <form action="{% url 'activation:login' %}" method="POST">
-          {% csrf_token %}
+            {% csrf_token %}
 
-            <span class="bold">Username</span>
-            <input class="form-control" name="username" type="text">
-            <br>
+            <section class="row">
 
-            <span class="bold">Senha</span>
-            <input class="form-control" name="password" type="password">
+              <div class="col-md-6 mb-2">
+                <span class="font-weight-bold">Usuário</span>
+                <input class="form-control" name="username" type="text">
+              </div>
+              
+              <div class="col-md-6">
+                <span class="font-weight-bold">Senha</span>
+                <input class="form-control" name="password" type="password">
+              </div>
+
+            </section>
 
             <button class="btn btn-success btn-sm mt-3 px-5">ENTRAR</button>
 
           </form>
-        </div>
 
-        <div class="card-footer pt-4">
-          <h4 class="text-center" style="bottom: 65px; font-weight: bold">Não tem uma conta ?&nbsp 
-          <a href="{% url 'activation:register' %}" class="btn btn-outline-success btn-sm px-5">REGISTRAR</a>
-        </div>
+        </section>
 
-      </div>
-      
+        <section class="card-footer border-top border-secondary pt-4">
+
+          <div class="row text-center">
+
+            <div class="col-md-6">
+              <h5 class="font-weight-bold">Não tem uma conta ? </h5>
+            </div>
+
+            <div class="col-md-6">
+              <a href="{% url 'activation:register' %}" class="btn btn-outline-success btn-sm px-5">REGISTRAR</a>
+            </div>
+
+          </div>
+
+        </section>
+
+
     </section>
 
     <section class="col-md-3"></section>
 
   </div>
-  
+
 </main>
 
 {% endblock %}

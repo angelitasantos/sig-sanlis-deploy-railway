@@ -13,88 +13,107 @@
 
     <section class="col-md-3"></section>
 
-    <section class="col-md-6">
+    <section class="col-md-6 border border-success shadow-lg p-3 mb-5 bg-body-tertiary rounded m-3">
 
-      <div class="card">
+      <section class="card-header border-bottom border-secondary">
 
-        <div class="card-header">
-          <h3 class="title">Seja Bem Vindo(a)</h3>
-          <h6 class="subtitle">Crie sua conta</h6>
-          {% include 'messages.html' %}
-        </div>
-
-        <ul class="mt-2">
-          <li>Deve conter letras maiúsculas e minúsculas</li>
-          <li>Deve conter números</li>
-          <li>Deve conter no mínimo 6 caracteres</li>
-        </ul>
+        <a class="text-success" href="{% url 'home:home' %}">
+          <h4 class="title font-weight-bold">Seja Bem Vindo(a)</h4>
+        </a>
         
-        <div class="card-body">
-          <form action="{% url 'activation:register' %}" method="POST">
+        <h6 class="subtitle">Crie sua conta</h6>
+        {% include 'messages.html' %}
+
+      </section>
+
+      <section class="card-body">
+
+        <form action="{% url 'activation:register' %}" method="POST">
           {% csrf_token %}
 
-            <div class="row">
-              <div class="col-md">
-                <span class="bold">Empresa</span>
-                <input class="form-control" placeholder="Digite o CNPJ da Empresa" name="cnpj" type="text">
-              </div>
+          <section class="row">
 
-              <div class="col-md">
-                <span class="bold">Token Empresa</span>
-                <input class="form-control" name="token_company" type="text">
-              </div>
+            <div class="col-md-6 pt-2">
+              <span class="font-weight-bold">Empresa</span>
+              <input class="form-control" name="cnpj" type="text">
             </div>
 
-            <div class="row">
-              <div class="col-md pt-1">
-                <span class="bold">Username</span>
-                <input class="form-control" name="username" type="text">
-              </div>
+            <div class="col-md-6 pt-2">
+              <span class="font-weight-bold">Token Empresa</span>
+              <input class="form-control" name="token_company" type="text">
             </div>
 
-            <div class="row">
-              <div class="col-md pt-1">
-                <span class="bold">E-mail</span>
-                <input class="form-control" name="email" type="text">
-              </div>
-            </div>
-            
-            <div class="row">
-              <div class="col-md pt-1">
-                <span class="bold">Nome</span>
-                <input class="form-control" name="first_name" type="text">
-              </div>
+          </section>
 
-              <div class="col-md pt-1">
-                <span class="bold">Sobrenome</span>
-                <input class="form-control" name="last_name" type="text">
-              </div>
+          <section class="row">
+
+            <div class="col-md-4 pt-2">
+              <span class="font-weight-bold">Username</span>
+              <input class="form-control" name="username" type="text">
             </div>
 
-            <div class="row">
-              <div class="col-md pt-1">
-                <span class="bold">Senha</span>
-                <input class="form-control" name="password" type="password">
-              </div>
-
-              <div class="col-md pt-1">
-                <span class="bold">Confirmar senha</span>
-                <input class="form-control" name="confirm_password" type="password">
-              </div>
+            <div class="col-md-8 pt-2">
+              <span class="font-weight-bold">E-mail</span>
+              <input class="form-control" name="email" type="text">
             </div>
 
-            <button class="btn btn-success btn-sm mt-3 px-5">REGISTRAR</button>
-          </form>
-        </div>
+          </section>
 
-        <div class="card-footer pt-4">
-          <h4 class="text-center" style="bottom: 65px; font-weight: bold">
-            Já possui uma conta ?&nbsp
+          <section class="row">
+
+            <div class="col-md-6 pt-2">
+              <span class="font-weight-bold">Nome</span>
+              <input class="form-control" name="first_name" type="text">
+            </div>
+
+            <div class="col-md-6 pt-2">
+              <span class="font-weight-bold">Sobrenome</span>
+              <input class="form-control" name="last_name" type="text">
+            </div>
+
+          </section>
+
+          <section class="row">
+
+            <div class="col-md-6 pt-2">
+              <span class="font-weight-bold">Senha</span>
+              <input class="form-control" name="password" type="password">
+            </div>
+
+            <div class="col-md-6 pt-2">
+              <span class="font-weight-bold">Confirmar senha</span>
+              <input class="form-control" name="confirm_password" type="password">
+            </div>
+
+          </section>
+
+          <ul class="mt-3">
+            <li>Deve conter letras maiúsculas e minúsculas</li>
+            <li>Deve conter números</li>
+            <li>Deve conter no mínimo 6 caracteres</li>
+          </ul>
+
+          <button class="btn btn-success btn-sm mt-3 px-5">REGISTRAR</button>
+
+        </form>
+
+      </section>
+
+      <section class="card-footer border-top border-secondary pt-4">
+
+        <div class="row text-center">
+        
+          <div class="col-md-6">
+            <h5 class="font-weight-bold">Já possui uma conta ? </h5>
+          </div>
+        
+          <div class="col-md-6">
             <a href="{% url 'activation:login' %}" class="btn btn-outline-success btn-sm px-5">CLIQUE AQUI</a>
-          </h4>
+          </div>
+        
         </div>
 
-      </div>
+      </section>
 
     </section>
 

@@ -128,6 +128,21 @@ def active_account(request, token):
     return redirect('/auth/login')
 
 
+@login_required(login_url='/auth/login/')
+def users(request):
+    title = sig + 'Listar Usuários'
+    
+    objects = User.objects.all()
+
+    context =   {   'title': title,
+                    'user_login': request.user,
+                    'objects': objects}
+    
+    print(objects)
+
+    return render(request, 'user/user_list.html', context)
+
+
 #################### Database Company
 @login_required(login_url='/auth/login/')
 def companies(request):
